@@ -1,4 +1,6 @@
 import { ActionFunction, redirect } from "@remix-run/node";
+import { Form } from "@remix-run/react";
+import { useState } from "react";
 import invariant from "tiny-invariant";
 import { addProduct } from "~/models/product.server";
 
@@ -17,9 +19,11 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 function NewProduct() {
+  const [title, setTitle] = useState("");
+  const [desc, setDescription] = useState("");
   return (
     <div className="w-60">
-      <form method="post" className="flex flex-col">
+      <Form method="post" className="flex flex-col">
         <label htmlFor="title">title</label>
         <input
           type="text"
@@ -40,7 +44,7 @@ function NewProduct() {
         >
           Add Product
         </button>
-      </form>
+      </Form>
     </div>
   );
 }
