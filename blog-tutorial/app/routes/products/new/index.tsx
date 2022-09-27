@@ -19,8 +19,6 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 function NewProduct() {
-  const [title, setTitle] = useState("");
-  const [desc, setDescription] = useState("");
   return (
     <div className="w-60">
       <Form method="post" className="flex flex-col">
