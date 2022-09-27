@@ -1,23 +1,26 @@
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
+
 import { getProducts } from "~/models/product.server";
 
 export const loader = async () => {
-  return json({ getProducts });
+  return json({
+    products: await getProducts(),
+  });
 };
 
-function Products() {
+export default function Products() {
   const { products } = useLoaderData();
+  console.log("prod", products);
   return (
-    <div>
+    <>
+      <h1>Products</h1>
       {products.map((product: any) => (
-        <>
-          <h1>{product.title}</h1>
-          <h3>{product.description}</h3>
-        </>
+        <div key={product.id} className="pt-5 pl-5">
+          <h1 className="font-extrabold">{product.title}</h1>
+          <h1>{product.description}</h1>
+        </div>
       ))}
-    </div>
+    </>
   );
 }
-
-export default Products;

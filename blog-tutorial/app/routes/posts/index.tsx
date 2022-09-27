@@ -2,6 +2,7 @@ import { json } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 
 import { getPosts } from "~/models/post.server";
+import { getProducts } from "~/models/product.server";
 
 type LoaderData = {
   // this is a handy way to say: "posts is whatever type getPosts resolves to"
