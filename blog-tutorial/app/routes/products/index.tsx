@@ -1,5 +1,5 @@
 import { json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
 
 import { getProducts } from "~/models/product.server";
 
@@ -21,6 +21,11 @@ export default function Products() {
           <h1>{product.description}</h1>
         </div>
       ))}
+      <p>
+        <Link to="new" className="text-blue-600">
+          Add New Product
+        </Link>
+      </p>
     </>
   );
 }
