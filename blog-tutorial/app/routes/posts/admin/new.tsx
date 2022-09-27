@@ -23,31 +23,19 @@ export const action: ActionFunction = async ({ request }) => {
     title: title ? null : "Title is required",
     slug: slug ? null : "Slug is required",
     markdown: markdown ? null : "Markdown is required",
-
   };
   const hasErrors = Object.values(errors).some((errorMessage) => errorMessage);
   if (hasErrors) {
     return json<ActionData>(errors);
   }
 
-  invariant(
-    typeof title === "string",
-    "title must be a string"
-  );
-  invariant(
-    typeof slug === "string",
-    "slug must be a string"
-  );
-  invariant(
-    typeof markdown === "string",
-    "markdown must be a string"
-  );
+  invariant(typeof title === "string", "title must be a string");
+  invariant(typeof slug === "string", "slug must be a string");
+  invariant(typeof markdown === "string", "markdown must be a string");
 
   await createPost({ title, slug, markdown });
 
   return redirect("/posts/admin");
-};
-  
 };
 
 const inputClassName = `w-full rounded border border-gray-500 px-2 py-1 text-lg`;

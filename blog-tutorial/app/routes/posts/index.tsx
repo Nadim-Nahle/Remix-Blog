@@ -19,7 +19,7 @@ export default function Posts() {
   console.log(posts);
   return (
     <main>
-      <h1>Posts</h1>
+      <h1>Postss</h1>
       <Link to="admin" className="text-red-600 underline">
         Admin
       </Link>
