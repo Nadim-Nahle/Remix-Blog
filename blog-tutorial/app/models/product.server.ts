@@ -10,3 +10,10 @@ export async function getProducts() {
 export async function getProduct(id: string) {
     return prisma.product.findUnique({where : {id}});
 }
+
+export const addProduct = async (
+    title: string,
+    description: string,
+) => {
+    await prisma.product.create(title,description)
+}
