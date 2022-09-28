@@ -1,4 +1,5 @@
 import TypesenseInstantsearchAdapter from "typesense-instantsearch-adapter";
+import { Hits, InstantSearch, SearchBox } from "react-instantsearch-dom";
 
 const typesenseInstantSearchAdapter = new TypesenseInstantsearchAdapter({
   server: {
@@ -18,7 +19,19 @@ const typesenseInstantSearchAdapter = new TypesenseInstantsearchAdapter({
 });
 
 function Search() {
-  return <div>Search</div>;
+  return (
+    <div>
+      <InstantSearch
+        indexName="products"
+        searchClient={typesenseInstantSearchAdapter.searchClient}
+      >
+        <div>
+          <SearchBox />
+          <Hits />
+        </div>
+      </InstantSearch>
+    </div>
+  );
 }
 
 export default Search;
