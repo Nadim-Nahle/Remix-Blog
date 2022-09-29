@@ -20,7 +20,9 @@
     "pretest:e2e:run": "npm run build",
     "test:e2e:run": "cross-env PORT=8811 start-server-and-test start:mocks http://localhost:8811 \"npx cypress run\"",
     "typecheck": "tsc -b && tsc -b cypress",
-    "validate": "run-p \"test -- --run\" lint typecheck test:e2e:run"
+    "validate": "run-p \"test -- --run\" lint typecheck test:e2e:run",
+    "start-server": "node app/models/runServer.server.js",
+    "populate": "node app/models/populate.server.js"
   },
   "prettier": {},
   "eslintIgnore": [
@@ -36,6 +38,7 @@
     "@remix-run/server-runtime": "^1.7.2",
     "@types/react-instantsearch-dom": "^6.12.3",
     "bcryptjs": "^2.4.3",
+    "instantsearch.css": "^7.4.5",
     "isbot": "^3.5.3",
     "marked": "^4.1.0",
     "react": "^18.2.0",
