@@ -1,26 +1,8 @@
-import { json } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
-import TypesenseInstantSearchAdapter from "typesense-instantsearch-adapter";
-import { Hits, InstantSearch, SearchBox } from "react-instantsearch-dom";
+import { ActionFunction, json, redirect } from "@remix-run/node";
+import { Form, Link, useLoaderData } from "@remix-run/react";
+import invariant from "tiny-invariant";
 
-import { getProducts } from "~/models/product.server";
-
-const typesenseInstantSearchAdapter = new TypesenseInstantSearchAdapter({
-  server: {
-    apiKey: "xyz",
-    nodes: [
-      {
-        host: "localhost",
-        port: 8108,
-        protocol: "http",
-      },
-    ],
-  },
-  additionalSearchParameters: {
-    query_by: "title, description",
-    query_by_weights: "4,1",
-  },
-});
+import { deleteProduct, getProducts } from "~/models/product.server";
 
 export const loader = async () => {
   return json({
@@ -28,25 +10,36 @@ export const loader = async () => {
   });
 };
 
+export const action: ActionFunction = async ({ request }) => {
+  const formData = await request.formData();
+
+  const id = formData.get("id");
+  console.log("before", id);
+
+  invariant(typeof id === "string", "title must be a string");
+
+  await deleteProduct(id);
+  console.log("after", id);
+  return redirect("/products");
+};
+
 export default function Products() {
   const { products } = useLoaderData();
   console.log("prod", products);
   return (
     <>
-      <InstantSearch
-        indexName="products"
-        searchClient={typesenseInstantSearchAdapter.searchClient}
-      >
-        <div>
-          <SearchBox />
-          <Hits />
-        </div>
-      </InstantSearch>
-
       <h1>Products</h1>
       {products.map((product: any) => (
         <div key={product.id} className="pt-5 pl-5">
-          <h1 className="font-extrabold">{product.title}</h1>
+          <Form method="post">
+            <Link to={product.id} className="text-blue-600 underline">
+              <h1 className="font-extrabold">{product.title}</h1>
+            </Link>
+            <input type="hidden" name="id" value={product.id} />
+            <button type="submit" className="round bg-blue-800 p-2 text-white">
+              Delete
+            </button>
+          </Form>
           <h1>{product.description}</h1>
         </div>
       ))}

@@ -1,8 +1,11 @@
+
 const Typesense = require("typesense");
+
 
 const BASE_IMAGE_PATH = "https://image.tmdb.org/t/p/w300";
 
 module.exports = (async () => {
+
     const TYPESENSE_CONFIG = {
         nodes: [
             {
@@ -79,6 +82,7 @@ module.exports = (async () => {
     };
 
     const movies = require("../dataset/popular-movies-with-genres.json");
+
 
     try {
         const collection = await typesense.collections("movies").retrieve();
