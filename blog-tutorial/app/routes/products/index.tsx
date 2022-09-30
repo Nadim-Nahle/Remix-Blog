@@ -30,7 +30,7 @@ export default function Products() {
     <>
       <h1>Products</h1>
       {products.map((product: any) => (
-        <div className="pt-5 pl-5">
+        <div className="pt-5 pl-5" key={product.id}>
           <Form method="post">
             <Link to={product.id} className="text-blue-600 underline">
               <h1 className="font-extrabold">{product.title}</h1>
